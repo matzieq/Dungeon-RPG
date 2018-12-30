@@ -7,5 +7,5 @@ let world = new World(level1, TILE_SIZE);
 
 setInterval(() => {
     world.draw();
-}, 500);
+}, 1000 / 30);
 

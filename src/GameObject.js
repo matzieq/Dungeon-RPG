@@ -7,9 +7,9 @@ export default class GameObject {
         console.log(this.imageData);
     }
 
-    draw (context) {
+    draw (context, adjustedX, adjustedY) {
         if (this.imageData.loaded) {
-            context.drawImage(this.imageData.handle, this.x * this.tileSize, this.y * this.tileSize);
+            context.drawImage(this.imageData.handle, adjustedX * this.tileSize, adjustedY * this.tileSize);
         }
     }
 }
