@@ -1,5 +1,6 @@
 import Hero from "./Hero.js";
 import loadImages from "./loadImages.js";
+import Camera from './Camera.js';
 
 const FLOOR = 0;
 const WALL = 1;
@@ -39,6 +40,7 @@ export default class World {
                 const tileTypeHere = this.levelLayout[row][column];
                 if (tileTypeHere === HERO) {
                     this.hero = new Hero(column, row, this.imageList[HERO], this.tileSize);
+                    this.camera = new Camera(0, 0, 16, 10);
                     this.levelObjectList.push(this.hero);
                 }
             }
@@ -74,7 +76,6 @@ export default class World {
 
     drawObjects() {
         for (let gameObject of this.levelObjectList) {
-            // console.log(gameObject);
             gameObject.draw(this.drawingContext);
         }
     }
