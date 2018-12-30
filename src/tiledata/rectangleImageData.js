@@ -2,49 +2,49 @@ let rectangleImageData =
 [
     {
         type: "bottom",
-        url: "./img/rectBot.png",
+        url: "./img/UI/rectBot.png",
         loaded: false,
         handle: null
     },
     {
         type: "left",
-        url: "./img/rectLeft.png",
+        url: "./img/UI/rectLeft.png",
         loaded: false,
         handle: null
     },
     {
         type: "right",
-        url: "./img/rectRight.png",
+        url: "./img/UI/rectRight.png",
         loaded: false,
         handle: null
     },
     {
         type: "top",
-        url: "./img/rectTop.png",
+        url: "./img/UI/rectTop.png",
         loaded: false,
         handle: null
     },
     {
         type: "bottom-left",
-        url: "./img/rectBotLeft.png",
+        url: "./img/UI/rectBotLeft.png",
         loaded: false,
         handle: null
     },
     {
         type: "bottom-right",
-        url: "./img/rectBotRight.png",
+        url: "./img/UI/rectBotRight.png",
         loaded: false,
         handle: null
     },
     {
         type: "top-left",
-        url: "./img/rectTopLeft.png",
+        url: "./img/UI/rectTopLeft.png",
         loaded: false,
         handle: null
     },
     {
         type: "top-right",
-        url: "./img/rectTopRight.png",
+        url: "./img/UI/rectTopRight.png",
         loaded: false,
         handle: null
     }

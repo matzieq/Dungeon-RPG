@@ -1,5 +1,5 @@
-import level1 from "./level1.js";
-import World from "./World.js";
+import level1 from "./levels/level1.js";
+import World from "./components/World.js";
 
 const TILE_SIZE = 16;
 

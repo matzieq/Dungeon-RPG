@@ -1,4 +1,4 @@
-let imageData = 
+let tileData = 
 [
     {
         type: "FLOOR",
@@ -8,17 +8,17 @@ let imageData =
     },
     {
         type: "WALL",
-        url: "./img/tile_wall.png",
+        url: "./img/tiles/tile_wall.png",
         loaded: false,
         handle: null
     },
     {
         type: "HERO",
-        url: "./img/hero.png",
+        url: "./img//characters/hero.png",
         loaded: false,
         handle: null
     }
 ]
 
 
-export default imageData;
+export default tileData;

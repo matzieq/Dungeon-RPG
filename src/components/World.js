@@ -1,7 +1,7 @@
 import Hero from "./Hero.js";
-import imageData from './imageData.js';
-import rectangleImageData from './rectangleImageData.js';
-import UI from './UI.js';
+import tileData from '../tiledata/tileData.js';
+import rectangleImageData from '../tiledata/rectangleImageData.js';
+import UI from '../tiledata/UI.js';
 import Camera from './Camera.js';
 
 const FLOOR = 0;
@@ -17,7 +17,7 @@ export default class World {
         this.width = level[0].length;
         this.tileSize = tileSize;
         this.levelLayout = level;
-        this.imageList = this.loadImages(imageData);
+        this.tileList = this.loadImages(tileData);
         this.rectangleImageList = this.loadImages(rectangleImageData);
         this.levelObjectList = [];
         this.loadLevel();
@@ -61,7 +61,7 @@ export default class World {
             for (let column = 0; column < this.levelLayout[row].length; column++) {
                 const tileTypeHere = this.levelLayout[row][column];
                 if (tileTypeHere === HERO) {
-                    this.hero = new Hero(column, row, this.imageList[HERO], this.tileSize);
+                    this.hero = new Hero(column, row, this.tileList[HERO], this.tileSize);
                     this.camera = new Camera(0, 0, 12, 8);
                     this.levelObjectList.push(this.hero);
                     this.levelLayout[row][column] = FLOOR;
@@ -106,7 +106,7 @@ export default class World {
                 let adjustedColumn = column - startingColumn;
                 let adjustedRow = row - startingRow;
                 if (this.levelLayout[row][column] === WALL) {
-                    this.drawTile(this.imageList[WALL], adjustedColumn, adjustedRow);       
+                    this.drawTile(this.tileList[WALL], adjustedColumn, adjustedRow);       
                 }
                 if (this.hero.x === column && this.hero.y === row) {
                     this.hero.draw(this.drawingContext, adjustedColumn, adjustedRow);
@@ -119,9 +119,10 @@ export default class World {
         for (let row = 0; row < UI.length; row++) {
             for (let column = 0; column < UI[0].length; column++) {
                 let tileTypeHere = UI[row][column];
+                
                 if (tileTypeHere) {
                     // console.log(this.rectangleImageList[tileTypeHere + 1]);
-                    this.drawTile(this.rectangleImageList[tileTypeHere + 1], column, row);
+                    this.drawTile(this.rectangleImageList[tileTypeHere - 1], column, row);
                 }
             }
         }
