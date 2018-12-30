@@ -40,7 +40,7 @@ export default class World {
                 const tileTypeHere = this.levelLayout[row][column];
                 if (tileTypeHere === HERO) {
                     this.hero = new Hero(column, row, this.imageList[HERO], this.tileSize);
-                    this.camera = new Camera(0, 0, 16, 10);
+                    this.camera = new Camera(0, 0, 12, 8);
                     this.levelObjectList.push(this.hero);
                 }
             }
@@ -51,9 +51,17 @@ export default class World {
     draw() {
         this.drawBackground();
         this.drawDungeon();
-        // this.drawObjects();
         this.camera.centerOn(this.hero);
-        
+    }
+
+    drawTile(imageData, x, y) {
+        if (imageData.loaded) {                       
+            this.drawingContext.drawImage(
+                imageData.handle, 
+                x * this.tileSize, 
+                y * this.tileSize
+            );
+        }  
     }
 
     drawBackground () {
@@ -62,38 +70,14 @@ export default class World {
     }
 
     drawDungeon() {
-        let startingRow = Math.min(
-            Math.max(0, this.camera.y),
-            this.levelLayout.length - this.camera.viewportHeight);
-        let finalRow = Math.max(
-            Math.min(
-                this.levelLayout.length, 
-                this.camera.y + this.camera.viewportHeight
-            ), this.camera.viewportHeight);
-
-        let startingColumn = Math.min(
-            Math.max(0, this.camera.x),
-            this.levelLayout[0].length - this.camera.viewportWidth);
-        let finalColumn = Math.max(
-            Math.min(
-                this.levelLayout[0].length, 
-                this.camera.x + this.camera.viewportWidth
-            ), this.camera.viewportWidth);
-
+        const { startingRow, startingColumn, finalRow, finalColumn } =
+        this.camera.calculateViewportCoordinates(this.width, this.height);
         for (let row = startingRow; row < finalRow; row++) {
             for (let column = startingColumn; column < finalColumn; column++) {
                 let adjustedColumn = column - startingColumn;
                 let adjustedRow = row - startingRow;
                 if (this.levelLayout[row][column] === WALL) {
-                    if (this.imageList[WALL].loaded) {
-                        
-                        this.drawingContext.drawImage(
-                            this.imageList[WALL].handle, 
-                            adjustedColumn * this.tileSize, 
-                            adjustedRow * this.tileSize
-                        );
-
-                    }             
+                    this.drawTile(this.imageList[WALL], adjustedColumn, adjustedRow);       
                 }
                 if (this.hero.x === column && this.hero.y === row) {
                     this.hero.draw(this.drawingContext, adjustedColumn, adjustedRow);
@@ -101,11 +85,4 @@ export default class World {
             }
         }
     }
-
-    drawObjects() {
-        for (let gameObject of this.levelObjectList) {
-            gameObject.draw(this.drawingContext, gameObject.x - this.camera.x, gameObject.y - this.camera.y);
-        }
-    }
-    
 }
