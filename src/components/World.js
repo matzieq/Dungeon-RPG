@@ -11,6 +11,12 @@ const HERO = 1;
 const GAME_WIDTH = 256;
 const GAME_HEIGHT = 160;
 
+
+const LEFT_ARROW = 37;
+const UP_ARROW = 38;
+const RIGHT_ARROW = 39;
+const DOWN_ARROW = 40;
+
 export default class World {
   constructor(levels, tileSize) {
     this.height = levels[0].layout.length;
@@ -18,13 +24,16 @@ export default class World {
     this.tileSize = tileSize;
     this.levels = levels;
     this.currentLevel = 0;
-    this.tileList = this.loadImages(tileData.tiles);
-    this.characterList = this.loadImages(tileData.characters);
-    this.rectangleImageList = this.loadImages(tileData.UI);
-    this.levelObjectList = [];
+    this.tileData = {
+      tiles: this.loadImages(tileData.tiles),
+      characters: this.loadImages(tileData.characters),
+      UI: this.loadImages(tileData.UI)
+    }
     this.loadLevel(this.currentLevel);
     this.createCanvas();
-
+    document.addEventListener('keydown', (event) => {
+      this.handleKeys(event);
+    });
     window.requestAnimationFrame((timestamp) => {
       this.step(timestamp);
     });
@@ -65,10 +74,9 @@ export default class World {
       for (let column = 0; column < currentLevelObjectData[row].length; column++) {
           const tileTypeHere = currentLevelObjectData[row][column];
           if (tileTypeHere === HERO) {
-            this.hero = new Hero(column, row, this.characterList[HERO], this.tileSize);
+            this.hero = new Hero(column, row, this.tileData.characters[HERO], this.tileSize);
             this.camera = new Camera(0, 0, 12, 8);
-            this.levelObjectList.push(this.hero);
-            // this.levelLayout[row][column] = FLOOR;
+            this.levels[this.currentLevel].objectList.push(this.hero);
           }
       }
     }
@@ -110,7 +118,7 @@ export default class World {
         let adjustedColumn = column - startingColumn;
         let adjustedRow = row - startingRow;
         if (currentLeveLLayout[row][column] === WALL) {
-          this.drawTile(this.tileList[WALL], adjustedColumn, adjustedRow);       
+          this.drawTile(this.tileData.tiles[WALL], adjustedColumn, adjustedRow);       
         }
         if (this.hero.x === column && this.hero.y === row) {
           this.hero.draw(this.drawingContext, adjustedColumn, adjustedRow);
@@ -124,7 +132,7 @@ export default class World {
       for (let column = 0; column < UI[0].length; column++) {
         let tileTypeHere = UI[row][column];              
         if (tileTypeHere) {
-          this.drawTile(this.rectangleImageList[tileTypeHere - 1], column, row);
+          this.drawTile(this.tileData.UI[tileTypeHere - 1], column, row);
         }
       }
     }
@@ -135,5 +143,34 @@ export default class World {
     window.requestAnimationFrame((timestamp) => {
       this.step(timestamp);
     });
+  }
+  handleKeys(event) {
+    const currentLeveLLayout = this.levels[this.currentLevel].layout;
+    const currentX = this.hero.x;
+    const currentY = this.hero.y;
+    let direction = {x: 0, y: 0};
+    switch (event.keyCode) {
+      case LEFT_ARROW:
+        direction.x = -1;
+        break;
+      case UP_ARROW:
+        direction.y = -1;
+        break;
+      case RIGHT_ARROW:
+        direction.x = 1;
+        break;
+      case DOWN_ARROW:
+        direction.y = 1;
+        break;
+    }
+    const movementPossible = this.tileData.tiles[
+      currentLeveLLayout[this.hero.y + direction.y][this.hero.x + direction.x]
+    ].passable;
+    console.log(this.hero.x, this.hero.y);
+    console.log(movementPossible);
+    if(movementPossible) {
+      this.hero.x += direction.x;
+      this.hero.y += direction.y;
+    }
   }
 }
