@@ -9,7 +9,11 @@ export default class GameObject {
 
     draw (context, adjustedX, adjustedY) {
         if (this.imageData.loaded) {
-            context.drawImage(this.imageData.handle, adjustedX * this.tileSize, adjustedY * this.tileSize);
+            context.drawImage(
+                this.imageData.handle, 
+                adjustedX * this.tileSize, 
+                adjustedY * this.tileSize
+            );
         }
     }
 }
