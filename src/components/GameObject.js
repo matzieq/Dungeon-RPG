@@ -4,7 +4,6 @@ export default class GameObject {
         this.y = y;
         this.imageData = imageData;
         this.tileSize = tileSize;
-        console.log(this.imageData);
     }
 
     draw (context, adjustedX, adjustedY) {

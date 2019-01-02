@@ -5,7 +5,7 @@ I'm not using any frameworks, I want to write my own engine.
 Currently I'm working on the drawing routines.
 
 Roadmap for the current "game moment":
-- Add keyboard handling
+- <strike>Add keyboard handling</strike>
 - Add stats
 - Add enemies and treasure
 - Add inventory and doors

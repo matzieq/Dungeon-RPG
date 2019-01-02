@@ -145,9 +145,6 @@ export default class World {
     });
   }
   handleKeys(event) {
-    const currentLeveLLayout = this.levels[this.currentLevel].layout;
-    const currentX = this.hero.x;
-    const currentY = this.hero.y;
     let direction = {x: 0, y: 0};
     switch (event.keyCode) {
       case LEFT_ARROW:
@@ -163,14 +160,18 @@ export default class World {
         direction.y = 1;
         break;
     }
-    const movementPossible = this.tileData.tiles[
-      currentLeveLLayout[this.hero.y + direction.y][this.hero.x + direction.x]
-    ].passable;
-    console.log(this.hero.x, this.hero.y);
-    console.log(movementPossible);
-    if(movementPossible) {
+    
+    if(this.isMovementPossible(this.hero.x, this.hero.y, direction)) {
       this.hero.x += direction.x;
       this.hero.y += direction.y;
     }
+  }
+
+  isMovementPossible(currentX, currentY, direction) {
+    const currentLeveLLayout = this.levels[this.currentLevel].layout;
+    return this.tileData.tiles[
+      currentLeveLLayout[currentY + direction.y][currentX + direction.x]
+    ]
+    .passable;
   }
 }
