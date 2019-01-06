@@ -10,6 +10,7 @@ const WALL = 1;
 
 const HERO = 1;
 const BAT = 2;
+const SKELETON = 3;
 
 const GAME_WIDTH = 256;
 const GAME_HEIGHT = 160;
@@ -91,6 +92,12 @@ export default class World {
         if (tileTypeHere === BAT) {
           let bat = new Monster(column, row, this.tileData.characters[BAT], this, "bat");           
           this.currentObjectList.push(bat);
+          console.log(this.currentObjectList);
+        }
+
+        if (tileTypeHere === SKELETON) {
+          let skeleton = new Monster(column, row, this.tileData.characters[SKELETON], this, "skeleton");           
+          this.currentObjectList.push(skeleton);
           console.log(this.currentObjectList);
         }
       }

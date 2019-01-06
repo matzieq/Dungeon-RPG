@@ -38,7 +38,13 @@ characters:
         url: "./img//characters/bat.png",
         loaded: false,
         handle: null
-    }
+    },
+    {
+        type: "SKELETON",
+        url: "./img//characters/skeleton.png",
+        loaded: false,
+        handle: null
+    },
 ],
 
 UI: 
