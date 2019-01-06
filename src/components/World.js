@@ -1,12 +1,15 @@
-import Hero from "./Hero.js";
+import Hero from "./GameObjects/Hero.js";
 import tileData from '../tiledata/tileData.js';
 import UI from '../tiledata/UI.js';
 import Camera from './Camera.js';
+import { Bat } from './GameObjects/Monsters.js';
+import { Sword } from './Items/Weapons.js';
 
 const FLOOR = 0;
 const WALL = 1;
 
 const HERO = 1;
+const BAT = 2;
 
 const GAME_WIDTH = 256;
 const GAME_HEIGHT = 160;
@@ -78,6 +81,12 @@ export default class World {
             this.camera = new Camera(0, 0, 12, 8);
             this.levels[this.currentLevel].objectList.push(this.hero);
           }
+          if (tileTypeHere === BAT) {
+            let bat = new Bat(column, row, this.tileData.characters[BAT], this.tileSize);
+            
+            this.levels[this.currentLevel].objectList.push(bat);
+            console.log(this.levels[this.currentLevel].objectList);
+          }
       }
     }
   }
@@ -113,6 +122,7 @@ export default class World {
       finalColumn 
     } = this.camera.calculateViewportCoordinates(this.width, this.height);
     const currentLeveLLayout = this.levels[this.currentLevel].layout;
+    const objectsInCurrentLevel = this.levels[this.currentLevel].objectList;
     for (let row = startingRow; row < finalRow; row++) {
       for (let column = startingColumn; column < finalColumn; column++) {
         let adjustedColumn = column - startingColumn;
@@ -120,9 +130,14 @@ export default class World {
         if (currentLeveLLayout[row][column] === WALL) {
           this.drawTile(this.tileData.tiles[WALL], adjustedColumn, adjustedRow);       
         }
-        if (this.hero.x === column && this.hero.y === row) {
-          this.hero.draw(this.drawingContext, adjustedColumn, adjustedRow);
+        for (let object of objectsInCurrentLevel) {
+          if (object.x === column && object.y === row) {
+            object.draw(this.drawingContext, adjustedColumn, adjustedRow);
+          }
         }
+        // if (this.hero.x === column && this.hero.y === row) {
+        //   this.hero.draw(this.drawingContext, adjustedColumn, adjustedRow);
+        // }
       }
     }
   }

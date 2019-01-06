@@ -32,6 +32,12 @@ characters:
         url: "./img//characters/hero.png",
         loaded: false,
         handle: null
+    },
+    {
+        type: "BAT",
+        url: "./img//characters/bat.png",
+        loaded: false,
+        handle: null
     }
 ],
 
