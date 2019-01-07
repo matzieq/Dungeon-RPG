@@ -11,8 +11,12 @@ export default class GameObject {
         if (this.imageData.loaded) {
             context.drawImage(
                 this.imageData.handle, 
+                0, 0, this.world.tileSize, this.world.tileSize,
+
                 adjustedX * this.world.tileSize, 
-                adjustedY * this.world.tileSize
+                adjustedY * this.world.tileSize,
+                this.world.tileSize,
+                this.world.tileSize
             );
         }
     }
