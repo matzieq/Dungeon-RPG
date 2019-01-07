@@ -1,0 +1,29 @@
+{
+  "name": "Dungeon-RPG",
+  "version": "1.0.0",
+  "description": "I'm finally making and RPG.\r I'm not using any frameworks, I want to write my own engine.\r Currently I'm working on the drawing routines.",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --mode development",
+    "build": "webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matzieq/Dungeon-RPG.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/matzieq/Dungeon-RPG/issues"
+  },
+  "homepage": "https://github.com/matzieq/Dungeon-RPG#readme",
+  "dependencies": {
+    "url-loader": "^1.1.2"
+  },
+  "devDependencies": {
+    "webpack": "^4.28.3",
+    "webpack-cli": "^3.2.1",
+    "webpack-dev-server": "^3.1.14"
+  }
+}
