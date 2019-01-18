@@ -38,8 +38,11 @@ export default class Hero extends Character {
               if (gameObject.x === newHeroCoords.x && gameObject.y === newHeroCoords.y) {
                 if (gameObject.type === "monster") {
                     gameObject.takeDamage(this.stats.att);
+                    this.world.displayParameters.monsterHP = gameObject.stats.hp;
+                    console.log(this.world.displayParameters.monsterHP);
                 }
-                console.log(gameObject);
+                // console.log(gameObject);
+                
                 return;
               }
             }

@@ -33,6 +33,9 @@ export default class World {
       characters: this.loadImages(tileData.characters),
       UI: this.loadImages(tileData.UI)
     }
+    this.displayParameters = {
+      monsterHP: 0
+    }
     this.loadLevel(this.currentLevel);
     // this.currentObjectList = this.levels[this.currentLevel].objectList;
     this.createCanvas();
@@ -110,6 +113,15 @@ export default class World {
     this.drawUI();
     this.camera.centerOn(this.hero);
     this.drawDungeon();
+    this.displayText(this.hero.stats.hp, 200, 20);
+    if (this.displayParameters.monsterHP) this.displayText(this.displayParameters.monsterHP, 200, 50);
+  }
+
+  displayText (text, x, y) {
+    this.drawingContext.imageSmoothingEnabled = false;
+    this.drawingContext.fillStyle = "#fff";
+    this.drawingContext.font = "20px Arial";
+    this.drawingContext.fillText(text, x, y);
   }
 
   drawTile(imageData, x, y) {
