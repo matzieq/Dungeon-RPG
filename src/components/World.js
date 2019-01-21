@@ -113,14 +113,14 @@ export default class World {
     this.drawUI();
     this.camera.centerOn(this.hero);
     this.drawDungeon();
-    this.displayText(this.hero.stats.hp, 200, 20);
-    if (this.displayParameters.monsterHP) this.displayText(this.displayParameters.monsterHP, 200, 50);
+    this.displayText(this.hero.stats.hp, 240, 20);
+    if (this.displayParameters.monsterHP) this.displayText(this.displayParameters.monsterHP, 240, 50);
   }
 
   displayText (text, x, y) {
     this.drawingContext.imageSmoothingEnabled = false;
     this.drawingContext.fillStyle = "#fff";
-    this.drawingContext.font = "20px Arial";
+    this.drawingContext.font = "8px Arial";
     this.drawingContext.fillText(text, x, y);
   }
 

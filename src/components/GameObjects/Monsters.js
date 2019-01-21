@@ -49,7 +49,7 @@ export default class Monster extends Character {
         } else {
           dir.y = 0;
         }
-        console.log(dir);
+        // console.log(dir);
         break;
     }
     return dir;
@@ -82,7 +82,7 @@ export default class Monster extends Character {
     if(!isMoving) return;
     for (let gameObject of this.world.currentObjectList) {
       if (gameObject.x === newCoords.x && gameObject.y === newCoords.y) {
-        console.log(gameObject);
+        // console.log(gameObject);
         return;
       }
     }
